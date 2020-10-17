@@ -1,0 +1,73 @@
+<div class="container colorEdit pad-top-bot20">
+  <div class="row">
+      <div class="col-12">
+         <button type="button" class="btn btn-primary" (click)="goBack()">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            Voltar
+         </button>
+      </div>
+    </div>
+  <hr />
+    <div class="row">
+      <div class="col-12">
+           <h3 id="titulo">Perfil do usuário {{ usuario.nome }}</h3>
+      </div>
+    </div>
+  <hr />
+    <div class="row">
+      <div class="col-12">
+
+         <div class="row">
+            <div class="col-12 col-md-6">
+               <label>Nome*:</label>
+               <input class="form-control form-control-sm text-uppercase" type="text"
+                    name="nome" [(ngModel)]="usuario.nome" placeholder="Nome completo">
+            </div>
+            <div class="col-12 col-md-6">
+                <label>Email*:</label>
+                <input class="form-control form-control-sm text-lowercase" type="e-mail"
+                     name="email" [(ngModel)]="usuario.email" placeholder="E-mail">
+            </div>
+         </div>
+
+         <div class="row top20">
+            <div class="col-12 col-md-6">
+               <label>senha*:</label>
+               <input class="form-control form-control-sm" type="password"
+                    name="senha" [(ngModel)]="usuario.senha" placeholder="Senha">
+            </div>
+            <div class="col-12 col-md-6">
+                <label>Re-senha*:</label>
+                <input class="form-control form-control-sm" type="password"
+                     name="resenha" [(ngModel)]="resenha" placeholder="Re-digite a senha">
+            </div>
+         </div>
+
+      </div>
+    </div>
+   <hr />
+
+
+   <div class="row bottom40">
+      <div class="col-12">
+        <button type="button" class="btn btn-success" id="btn-salvar" (click)="salvar()">
+           <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          Salvar
+        </button>
+        <button type="button" class="btn btn-warning" id="btn-cancelar" (click)="goBack()">
+           <i class="fa fa-ban" aria-hidden="true"></i>
+          Cancelar
+        </button>
+      </div>
+    </div>
+
+
+   <!-- fecha container -->
+  </div>
+
+
+
+  <div *ngIf="load" class="loadcss">
+      <img src="./assets/img/load3.gif">
+   </div>
+

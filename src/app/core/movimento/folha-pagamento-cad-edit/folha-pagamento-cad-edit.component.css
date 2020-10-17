@@ -1,0 +1,58 @@
+.pad {
+  padding: 20px;
+}
+#titulo {
+  font-weight: 300;
+}
+.top10 {
+  margin-top: 10px;
+}
+.tabela {
+  width: 100%;
+  overflow: auto;
+}
+.center {
+  text-align: center;
+}
+.col-cod {
+  width: 75px;
+ }
+ .col-desc {
+   width: 280px;
+ }
+ .col-tipo {
+   width: 100px;
+ }
+ .col-trib {
+   width: 100px;
+ }
+ .chk-tributacao {
+   margin-right: 10px;
+ }
+ .opt {
+  margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 640px) {
+  .pad {
+    padding: 5px;
+  }
+}

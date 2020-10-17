@@ -1,0 +1,54 @@
+<div class="container altura-minima bkcor">
+
+<div class="row">
+   <div class="col-12 center">
+      <h2 class="titulo">Bem Vindo ao sistema AUDINSS</h2>
+   </div>
+</div>
+
+<div class="row">
+  <div class="col-12 center">
+     <h5 class="titulo">sistema versão {{ versao }}</h5>
+  </div>
+</div>
+
+<div class="row" *ngIf="clientesDash?.length == 0">
+   <div class="col-12 center">
+    <div class="painel">
+      <h5 class="red">ATENÇÃO: Você está logado como ADMINISTRADOR!</h5>
+    </div>
+   </div>
+</div>
+
+<div class="tabela" *ngIf="clientesDash?.length > 0">
+  <p-table [value]="clientesDash" [responsive]="true">
+    <ng-template pTemplate="caption">
+       Prefeituras do Usuário {{ auth.jwtPayload['nome'] }}
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="col-nome">Nome</th>
+            <th class="col-dt-ini">Início contrato</th>
+            <th class="col-dt-fim">Fim contrato</th>
+            <th class="col-status">Status</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cli >
+        <tr [ngClass]="(cli.fim.getTime() >= cli.datServidor.getTime()) ? 'green' : 'red'" >
+            <td>{{ cli.nome }}</td>
+            <td>{{ cli.inicio | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ cli.fim | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ cli.fim.getTime() >= cli.datServidor.getTime() ? 'ATIVO' : 'EXPIROU'  }}</td>
+
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+
+  <!-- fecha container -->
+</div>
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

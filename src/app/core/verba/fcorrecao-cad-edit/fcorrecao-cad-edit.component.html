@@ -1,0 +1,113 @@
+<div [class]="css">
+
+  <h4 id="titulo">{{ titulo }}</h4>
+
+ <hr />
+
+
+ <div class="row" *ngIf="!clienteSelecionado || !legislacaoSelecionada">
+    <div class="col-12 col-md-6">
+      <h5 class="has-danger" *ngIf="!clienteSelecionado">Selecione um cliente para continuar ...</h5>
+    </div>
+    <div class="col-12 col-md-6">
+      <h5 class="has-danger" *ngIf="!legislacaoSelecionada">Selecione uma legislação para continuar ...</h5>
+    </div>
+   <hr />
+ </div>
+
+
+
+ <div class="row">
+  <div class="col-12 col-md-6">
+    <div class="form-group">
+      <div><label>Cliente:</label></div>
+     <p-dropdown placeholder="Selecione o Cliente" (onChange)="carregarFcs()"
+         [options]="clientesDto" [(ngModel)]="clienteSelecionado" [style]="{'width':'100%'}"
+         optionLabel="nome" filter="true"></p-dropdown>
+    </div>
+ </div>
+  <div class="col-12 col-md-6">
+    <div class="form-group">
+      <div><label>Legislação:</label></div>
+     <p-dropdown placeholder="Selecione a Legislação" (onChange)="carregarFcs()"
+         [options]="legislacoes" [(ngModel)]="legislacaoSelecionada" [style]="{'width':'100%'}"
+         optionLabel="legislacao" filter="true"></p-dropdown>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="legislacaoSelecionada && legislacaoSelecionada?.exigeDataInicio">
+  <div class="col-12 col-md-auto">
+    <div><label>Data da entrada do processo:</label></div>
+    <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2050"
+    [(ngModel)]="dataEntrada" [showIcon]="true" [locale]="br.br"
+           name="dtvencimento" dateFormat="dd/mm/yy"  [inputStyle]="{'width':'70%'}"></p-calendar>
+  </div>
+</div>
+
+<hr />
+<div class="row" *ngIf="comOuSemVerba">
+  <div class="col-12">
+    <h6 class="alert-danger pad10"> Nenhuma verba padrão encontrada no cliente {{ clienteSelecionado.nome }}, para gerar a folha de correção </h6>
+  </div>
+</div>
+
+<div class="tabela" *ngIf="fcse?.length > 0">
+  <p-table [value]="fcse" [rowHover]="true">
+    <ng-template pTemplate="caption">
+       {{ tituloTable }} {{ legislacaoSelecionada.legislacao }} e salve
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="col-cod center">Código:</th>
+            <th class="col-desc">Descrição</th>
+            <th class="col-config center">Configuração</th>
+            <th class="col-trib center">Tributação</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-f >
+        <tr class="ui-selectable-row">
+             <td class="center">{{ f.verbaPadrao.codigo }}</td>
+            <td>{{ f.verbaPadrao.descricao }}</td>
+            <td class="center" [ngClass]="{'text-danger': !f.configurado, 'text-success': f.configurado }">
+              {{ f.configurado ? 'Configurado' : 'NÃO CONFIGURADO' }}
+            </td>
+            <td class="center">
+              <p-checkbox [(ngModel)]="f.fc" binary="true" class="chk-tributacao"></p-checkbox>
+              {{ f.fc ? 'T' : 'NT' }}
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+<div *ngIf="fcse?.length > 0">
+    <hr />
+
+    <div class="row top10">
+      <div class="col-12">
+        <button type="button" class="btn btn-primary btn-sm opt" (click)="goBack()">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          Voltar
+        </button>
+        <button type="button" class="btn btn-success btn-sm opt" (click)="salvarFolhasCorrecao()">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          Salvar
+        </button>
+        <button type="button" [disabled]="!clienteSelecionado || !legislacaoSelecionada" *ngIf="edicao"
+          class="btn btn-danger btn-sm" (click)="exluirFolha()">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+          Excluir
+        </button>
+      </div>
+    </div>
+</div>
+
+  <!-- fecha container -->
+</div>
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

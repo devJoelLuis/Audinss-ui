@@ -1,0 +1,41 @@
+.pad {
+  padding: 30px;
+}
+#titulo {
+  font-weight: 300;
+}
+.top20 {
+  margin-top: 20px;
+}
+.tabela {
+  width: 100%;
+  overflow: auto;
+}
+.col-cod {
+ width: 75px;
+}
+.col-desc {
+  width: 280px;
+}
+.col-tipo {
+  width: 100px;
+}
+.col-trib {
+  width: 100px;
+}
+.col-op {
+  width: 100px;
+}
+.center {
+  text-align: center;
+}
+.bt-edit {
+  margin-right: 5px;
+}
+
+
+@media screen and (max-width: 640px) {
+  .pad {
+    padding: 5px;
+  }
+}

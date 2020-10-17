@@ -1,0 +1,30 @@
+<div class="container altura-minima config">
+
+  <div class="formGroup">
+     <textarea class="form-control" rows="15">
+       * SISTEMA de auditoria de imposto INSS por legislação, VERSÃO {{ versao }}
+
+
+       #---------------------------------------------------------------------------------------------------
+
+       * A partir da versão 1.1.3 as taxas de juros são atualizadas automaticamente
+       todo dia 2 de cadas mês as 23 horas, com base no site da receita;
+       https://receita.economia.gov.br/orientacao/tributaria/pagamentos-e-parcelamentos/taxa-de-juros-selic
+       #---------------------------------------------------------------------------------------------------
+
+          Versão 1.1.4.2 - implantado algoritmo de cálculo do décimo terceiro mês, para calcular o décimo
+       terceiro salário.
+           Adicionado opção de exigir uma data de entrega do processo, ou não, no cadastro de uma nova legislação;
+          A data será exigida ou não, no momento da configuração da folha de correção.
+          Implantado algoritmo que busca somente os anos que possuem lançamentos de Fc e Fp para os filtros em gerais.
+       #---------------------------------------------------------------------------------------------------
+       
+          Versão 1.1.5 - implantado alerta de verbas padrões adicionadas e não configuradas.
+          Os alertas serão lançados no momento de gerar os relatórios, para que não haja inconsistência.
+       #--------------------------------------------------------------------------------------------------- 
+       Copyright © todos os direitos reservados.
+     </textarea>
+  </div>
+
+<!-- fecha container -->
+</div>

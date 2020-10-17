@@ -1,0 +1,98 @@
+.pad {
+  padding: 30px;
+}
+#titulo {
+  font-weight: 300;
+}
+.top20 {
+  margin-top: 20px;
+}
+.tabela {
+  width: 100%;
+  overflow: auto;
+}
+#nao-encontrado{
+  color: red;
+}
+.center {
+  text-align: center;
+}
+.tabela tr > td,
+.tabela tr > th
+{
+   font-size: 12px !important;
+}
+.col-cod {
+  width: 100px;
+}
+.col-desc {
+  width: 200px;
+}
+.col-tipo {
+  width: 80px;
+}
+.col-fc{
+  width: 35px;
+}
+.col-fp{
+  width: 35px;
+}
+.col-prov{
+  width: 110px;
+}
+.col-base{
+  width: 110px;
+}
+.col-vinss{
+  width: 110px;
+}
+.col-vrecup{
+  width: 110px;
+}
+.col-vpagar {
+  width: 110px;
+}
+.col-op {
+  width: 130px;
+}
+#salvar-edicao {
+  margin-right: 10px;
+}
+.totais > div {
+  background-color:rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 20px;
+}
+.bold {
+  font-weight: bold;
+}
+#aliquota > tr > td {
+  border: 1px solid white;
+  background-color:rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px;
+}
+.btotais {
+  display: block inline;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 640px) {
+  .pad {
+    padding: 5px;
+  }
+  #nao-encontrado{
+    color: red;
+    font-size: 18px;
+  }
+
+}

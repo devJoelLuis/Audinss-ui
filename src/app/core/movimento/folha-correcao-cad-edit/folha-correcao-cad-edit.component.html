@@ -1,0 +1,156 @@
+
+<div [class]="css">
+
+<h4 id="titulo">Folha de correção</h4>
+
+<div class="row">
+  <div class="col-12">
+     <button type="button" class="btn btn-sm btn-primary" (click)="goback()">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>
+       Voltar
+     </button>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+   <div class="col-12 col-md-8">
+    <b>Cliente:</b> {{ aliquota?.cliente?.nome }}
+   </div>
+   <div class="col-12 col-md-auto">
+    <b>Mês:</b> {{ aliquota.mes }}
+  </div>
+  <div class="col-12 col-md-auto">
+    <b>Ano:</b>  {{ aliquota.ano }}
+  </div>
+</div>
+
+
+
+<div class="row" *ngIf="movimentosEdit?.length == 0">
+  <div class="col-12">
+     <h5 id="nao-encontrado">NENHUMA FOLHA DE CORREÇÃO ENCONTRADA ENCONTRADA!</h5>
+  </div>
+</div>
+
+
+
+<div class="tabela top20" *ngIf="movimentosEdit?.length > 0">
+  <div class="bold">
+
+  </div>
+  <p-table [value]="movimentosEdit" [rowHover]="true">
+    <ng-template pTemplate="caption">
+       Folha de Correção
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="col-cod center">codigo</th>
+            <th class="col-desc">Descrição</th>
+            <th class="col-fc center">FC</th>
+            <th class="col-fp center">FP</th>
+            <th class="col-prov">Provento</th>
+            <th class="col-base">Base Calculo INSS</th>
+            <th class="col-vinss">Valor INSS</th>
+            <th class="col-vrecup">Valor Recuperar</th>
+            <th class="col-vpagar">Valor Pagar</th>
+            <th class="col-op center">Opções</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-m >
+        <tr class="ui-selectable-row">
+            <td class="center">{{ m.codigo }}</td>
+            <td>{{ m.descricao }}</td>
+            <td class="center">
+              <p-checkbox [(ngModel)]="m.fc" (onChange)="recalcular(m)"
+                  binary="true" class="chk-tributacao" *ngIf="m.edit"></p-checkbox>
+              {{ m.fc ? 'T' : 'NT' }}
+            </td>
+            <td class="center">
+              <p-checkbox [(ngModel)]="m.fp" (onChange)="recalcular(m)"
+                 binary="true" class="chk-tributacao" *ngIf="m.edit"></p-checkbox>
+              {{ m.fp ? 'T' : 'NT' }}
+            </td>
+            <td>{{ m.valorProvento | number: '1.2-2' }}</td>
+            <td>{{ m.baseCalcInss | number: '1.2-2' }}</td>
+            <td>{{ m.valorInssFp | number: '1.2-2' }}</td>
+            <td>{{ m.valorRecuperar | number: '1.2-2'}}</td>
+            <td>{{ m.valorPagar < 0 ? m.valorPagar * -1 : m.valorPagar | number: '1.2-2' }}</td>
+            <td class="center">
+              <button type="button" class="btn btn-sm btn-warning" *ngIf="!m.edit" [disabled]="modoEdicao"
+                pTooltip="Editar Verba" tooltipPosition="left" (click)="editar(m)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-success" *ngIf="m.edit" id="salvar-edicao"
+                pTooltip="Salvar a alteração da Verba" tooltipPosition="left" (click)="salvarEdicao(m)">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-warning" *ngIf="m.edit"
+                pTooltip="Cancelar Edição da Verba" tooltipPosition="left" (click)="cancelarEdicao(m)">
+                <i class="fa fa-ban" aria-hidden="true"></i>
+              </button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+
+<div class="row totais">
+  <div class="col-12 col-md-4">
+    Total Provento: <b class="btotais"> R${{ tprovento | number: '1.2-2' }}</b>
+  </div>
+  <div class="col-12 col-md-4">
+    Base de Calculo FP: <b class="btotais">R${{ tbaseCalculo | number: '1.2-2' }}</b>
+  </div>
+  <div class="col-12 col-md-4">
+    Total INSS: <b class="btotais">R${{ tinss | number: '1.2-2' }}</b>
+  </div>
+
+  <div class="col-12 col-md-4">
+    Total Recuperar: <b class="btotais">R${{ trecuperar | number: '1.2-2' }}</b>
+  </div>
+  <div class="col-12 col-md-4">
+    Total Pagar: <b class="btotais">R${{ tpagar | number: '1.2-2' }}</b>
+  </div>
+  <div class="col-12 col-md-4">
+     Base Calculo {{legislacao}}: <b class="btotais">R${{ tbaseCalculoFc | number: '1.2-2' }}</b>
+  </div>
+</div>
+
+<table class="top20" id="aliquota">
+  <tr>
+    <td>Legislação </td>
+    <td>{{ legislacao }}</td>
+  </tr>
+  <tr>
+    <td>Empresa INSS: </td>
+    <td> {{ aliquota.inssEmpresa | number: '1.2-2' : 'en' }}%</td>
+  </tr>
+  <tr>
+    <td>RAT: </td>
+    <td> {{ aliquota.inssRat | number: '1.2-2' : 'en'}}%</td>
+  </tr>
+  <tr>
+    <td>INSS Terceiros </td>
+    <td>{{ aliquota.inssTerceiros  | number: '1.2-2' : 'en'}}%</td>
+  </tr>
+  <tr>
+    <td>TOTAL % </td>
+    <td>{{ aliquota.inssEmpresa + aliquota.inssRat + aliquota.inssTerceiros | number: '1.2-2' : 'en' }}%</td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+  <!-- fecha container -->
+</div>
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

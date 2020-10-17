@@ -1,0 +1,73 @@
+<div class="container altura-minima bg-color pad">
+
+<button type="button" class="btn btn-sm btn-primary" (click)="voltar()">
+  <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  Voltar
+</button>
+<div id="titulo"><h4>Relatório demonstrativo anual</h4></div>
+
+
+<hr />
+
+<div class="row">
+  <div class="col-12 col-md-6 form-group">
+    <div><label>Clientes:</label></div>
+     <p-dropdown placeholder="Selecione o Cliente" (onChange)="anos = [];"
+         [options]="clientesDto" [(ngModel)]="clienteSelecionado" [style]="{'width':'100%'}"
+         optionLabel="nome" filter="true">
+    </p-dropdown>
+  </div>
+  <div class="col-12 col-md-auto form-group">
+    <button type="button" class="btn btn-sm btn-primary btn-margin-top"  (click)="consultarLancamentos()">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      Consultar
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="anos && anos.length > 0">
+  <div class="col-12 col-md-auto form-group">
+    <div><label for="anos">Selecione o ano:</label></div>
+    <select class="custom-select" name="anos" [(ngModel)]="ano" id="anos">
+      <option *ngFor="let ano of anos" value="{{ano}}">{{ ano }}</option>
+    </select>
+  </div>
+
+  <div class="col-12 col-md-6 form-group">
+    <div><label>Selecione a Legislação:</label></div>
+    <select class="form-control" name="selectleg" [(ngModel)]="legislacaoSelecionada" >
+       <option *ngFor="let leg of legislacoes" value="{{leg}}">{{ leg }}</option>
+    </select>
+  </div>
+
+</div>
+
+<div class="row" *ngIf="anos && anos.length > 0">
+  <div class="col-12 col-md-auto form-group">
+    <div><label for="dataselic">Data final taxa selic:</label></div>
+    <p-calendar [(ngModel)]="dataFinalSelic" [monthNavigator]="true" id="dataselic" pTooltip="Selecione a data final para o calculo do acumulado da taxa selic"
+       [yearNavigator]="true" yearRange="2000:2030" name="dataselic" dateFormat="dd/mm/yy" [locale]="br.br" >
+     </p-calendar>
+  </div>
+  <div class="col-12 col-md-auto form-group">
+    <button type="button" class="btn btn-sm btn-primary btn-margin-top" (click)="gerarRelatorio()">
+     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+       Gerar Relatório
+    </button>
+ </div>
+
+</div>
+
+
+
+
+
+
+<!-- fecha container -->
+</div>
+
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

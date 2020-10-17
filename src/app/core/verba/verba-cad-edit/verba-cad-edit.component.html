@@ -1,0 +1,127 @@
+
+<div [class]="css">
+
+  <h4 id="titulo">{{ titulo }}</h4>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+       <div class="form-group">
+         <div><label>Selecione o Cliente</label></div>
+        <p-dropdown placeholder="Selecione o Cliente" (onChange)="consultarVerbas()"
+            [options]="clisdto" [(ngModel)]="clienteSelecionado" [style]="{'width':'100%'}"
+            optionLabel="nome" filter="true"></p-dropdown>
+       </div>
+    </div>
+  </div>
+
+  <hr />
+
+
+     <div class="row top10">
+       <div class="col-12 col-md-auto">
+        <div class="form-group">
+          <label  for="cod" >Código*:</label>
+          <input type="text"   [(ngModel)]="verba.codigo" id="cod"
+          class="form-control form-control-sm" name="codigo" >
+        </div>
+       </div>
+       <div class="col-12 col-md-8">
+        <div class="form-group" >
+          <label  for="desc">Descrição*:</label>
+          <input type="text" maxlength="80" [(ngModel)]="verba.descricao"
+          class="form-control form-control-sm" name="descricao"  id="descr" placeholder="Descrição">
+       </div>
+      </div>
+     </div><!-- fecha linha codigo e descricao-->
+
+     <hr />
+
+     <h5>FOLHA DE PAGAMENTO ATUAL (FP)</h5>
+
+     <div class="row top10">
+      <div class="col-12 col-md-6">
+         <div class="form-group">
+         <p-radioButton name="group1" value="DESCONTO" label="DESCONTO"
+            [(ngModel)]="verba.tipo" inputId="opt1" class="opt"></p-radioButton>
+         <p-radioButton name="group1" value="PROVENTO" label="PROVENTO"
+            [(ngModel)]="verba.tipo" inputId="opt2"></p-radioButton>
+
+         </div>
+      </div>
+      <div class="col-12 col-md-6">
+         <div class="form-group">
+         <p-radioButton name="group2" value="T" label="TRIBUTOU (T)"
+            [(ngModel)]="verba.fp" inputId="opt3" class="opt"></p-radioButton>
+         <p-radioButton name="group2" value="NT" label="NÃO TRIBUTOU (NT)"
+            [(ngModel)]="verba.fp" inputId="opt4"></p-radioButton>
+
+         </div>
+      </div>
+    </div>
+
+<hr />
+
+<div class="row">
+  <div class="col-12" id="barraBtn">
+      <button pButton type="button" class="btnOp" (click)="goback()"
+      icon="fa fa-arrow-left" iconPos="left" label="Voltar"></button>
+
+
+      <button pButton type="button" class="btnOp ui-button-success" (click)="salvar()"
+      icon="fa fa-floppy-o" iconPos="left" label="Salvar" ></button>
+    </div>
+</div>
+<hr />
+
+<div class="row top20" *ngIf="verbas?.length == 0 && clienteSelecionado">
+  <div class="col-12">
+    <h5 id="titulo">Nenhuma verba cadastrada no cliente {{clienteSelecionado?.nome}}</h5>
+  </div>
+  </div>
+
+
+<div class="tabela top20" *ngIf="verbas?.length > 0">
+  <p-table [value]="verbas" [responsive]="true" [rowHover]="true">
+    <ng-template pTemplate="caption">
+       Lista de Verbas {{ clienteSelecionado?.nome }}
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="col-cod center">Código:</th>
+            <th class="col-desc">Descrição</th>
+            <th class="col-tipo center">Tipo:</th>
+            <th class="col-trib center">Tributação (FP)</th>
+            <th class="col-op center">Opções</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-v >
+        <tr class="ui-selectable-row">
+             <td class="center">{{ v.codigo }}</td>
+            <td>{{ v.descricao }}</td>
+            <td class="center">{{ v.tipo }}</td>
+            <td class="center">{{ v.fp }}</td>
+            <td class="center">
+              <button type="button" class="btn btn-sm btn-warning bt-edit" (click)="editarVerba(v)"
+              pTooltip="Editar verba" tooltipPosition="left">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-danger" (click)="excluirVerba(v)"
+              pTooltip="Excluir verba" tooltipPosition="left">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+  </div>
+
+
+ <!-- fecha container -->
+</div>
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>
+

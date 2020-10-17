@@ -1,0 +1,95 @@
+<div class="container bg-color altura-minima pad">
+
+  <button type="button" class="btn btn-sm btn-primary" (click)="voltar()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    Voltar
+  </button>
+
+  <div id="titulo"><h4>Folha de Correção</h4></div>
+
+  <hr />
+
+  <div class="row">
+
+    <div class="col-12 col-md-6 form-group">
+      <div><label>Clientes:</label></div>
+       <p-dropdown placeholder="Selecione o Cliente" (onChange)="changeCliente()"
+           [options]="clientesDto" [(ngModel)]="clienteSelecionado" [style]="{'width':'100%'}"
+           optionLabel="nome" filter="true"></p-dropdown>
+    </div>
+
+    <div class="col-12 col-md-6 form-group" *ngIf="clienteSelecionado && legislacoes && legislacoes?.length > 0" >
+      <div><label>Selecione a Legislação:</label></div>
+      <select class="form-control" [(ngModel)]="legislacaoSelecionada" name="selectleg" >
+          <option *ngFor="let leg of legislacoes" value="{{ leg }}" class="form-control"  >{{ leg }}</option>
+      </select>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-2 form-group" *ngIf="anos && anos?.length > 0" >
+      <div><label>Selecione o Ano:</label></div>
+       <select class="form-control" [(ngModel)]="ano">
+          <option *ngFor="let ano of anos" value={{ano}} >{{ano}}</option>
+       </select>
+    </div>
+     <div class="col-12 col-md-auto form-group" *ngIf="clienteSelecionado && legislacoes && legislacoes?.length > 0">
+      <button type="button" class="btn btn-sm btn-primary" id="btn-consultar" (click)="consultarLancamentos()">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        Consultar
+      </button>
+     </div>
+  </div>
+
+ <hr />
+
+ <div class="row" *ngIf="aliquotas?.length == 0">
+  <div class="col-12">
+     <h5 id="nao-encontrado">NENHUM REGISTRO ENCONTRADO!</h5>
+  </div>
+</div>
+
+<div class="tabela top20" *ngIf="aliquotas?.length > 0">
+  <p-table [value]="aliquotas" [responsive]="true" [rowHover]="true">
+    <ng-template pTemplate="caption">
+       Folhas de Pagamento Cadastradas
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="col-ano center">Ano</th>
+            <th class="col-mes center">Mes</th>
+            <th class="col-obs">Observação</th>
+            <th class="col-op center">Opções</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-al >
+        <tr class="ui-selectable-row">
+            <td class="center">{{ al.ano }}</td>
+            <td class="center">{{ al.mes }}</td>
+            <td>{{ al.obs }}</td>
+            <td class="center">
+              <button type="button" class="btn btn-sm btn-warning" id="bt-visualizar" *ngIf="!urlRelatorio()"
+                  pTooltip="Editar FC" tooltipPosition="left" (click)="carregarFc(al)">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary" *ngIf="urlRelatorio()"
+                  pTooltip="Gerar Relatório PDF" tooltipPosition="left" (click)="relatorio(al)">
+                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              </button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+
+
+  <!-- fecha container -->
+</div>
+
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

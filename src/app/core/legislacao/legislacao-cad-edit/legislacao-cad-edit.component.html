@@ -1,0 +1,90 @@
+<div [class]="css">
+
+
+  <div class="row">
+    <div class="col-12 center">
+      <h4 id="titulo">{{ titulo }}</h4>
+    </div>
+  </div>
+  <hr />
+
+  <div class="row">
+    <div class="col-12 col-md-7 form-group">
+        <label for="leg">Descrição <b class="text-danger">*</b>: </label>
+        <input type="text" class="form-control form-control-sm"  placeholder="Entre com a descrição da legislação"
+              id="leg" [(ngModel)]="legislacao.legislacao" />
+    </div>
+    <div class="col-12 col-md-auto form-group">
+       <input type="checkbox" name="exigeDataInico" id="dtini" [(ngModel)]="legislacao.exigeDataInicio" />
+       <label for="dtini" tooltipPosition="top"
+           pTooltip="Habilitar essa opção, o sistema irá exigir que a data da entrada do processo seja informada na configuração da FC">
+           Exigir data da entrada do processo
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-10 form-group">
+      <input type="text" maxlength="80" [(ngModel)]="nomeArtigo"
+      class="form-control form-control-sm" name="artigo"  id="artigo" placeholder="Entre a descrição do artigo">
+    </div>
+    <div class="col-12 col-md-auto form-group">
+      <button type="button" class="btn btn-sm btn-primary"  (click)="addArtigo()"
+                [disabled]="!nomeArtigo || nomeArtigo?.length < 1">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+         Adicionar Artigo
+       </button>
+    </div>
+   </div>
+
+  <div class="row">
+
+    <div class="tabela-artigos form-group" *ngIf="legislacao?.artigos && legislacao?.artigos?.length > 0 ">
+       <table class="table table-striped" id="tb-artigo">
+          <thead class="thead-dark">
+             <tr>
+                <th scope="col">Artigos</th>
+                <th scope="col" class="col-op center">Opção</th>
+             </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let artigo of legislacao?.artigos" >
+               <td>{{ artigo.descricao }}</td>
+               <td class="center">
+                 <button type="button" id="btn-remove-artigo" class="btn btn-sm btn-danger" pTooltip="Remover este artigo" (click)="removeArtigo(artigo)">
+                   <i class="fa fa-trash" aria-hidden="true"></i>
+                 </button>
+               </td>
+            </tr>
+          </tbody>
+       </table>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-12 form-group">
+      <button type="button" class="btn btn-sm btn-primary btnOp" (click)="goback()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Voltar
+      </button>
+      <button type="button" class="btnOp btn btn-sm btn-success" (click)="salvar()">
+         Salvar
+      </button>
+    </div>
+  </div>
+
+
+
+
+<!-- fecha container -->
+</div>
+
+
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>
+

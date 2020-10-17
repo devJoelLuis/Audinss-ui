@@ -1,0 +1,38 @@
+<div class="taxa-container">
+  <h4>Taxas de juros selic mensais</h4>
+  <div class="tabela">
+  <table class="table table-striped">
+
+    <thead>
+        <tr>
+          <th>Ano/Mês</th>
+          <th>Janeiro</th>
+          <th>Fevereiro</th>
+          <th>Março</th>
+          <th>Abril</th>
+          <th>Maio</th>
+          <th>Junho</th>
+          <th>Julho</th>
+          <th>Agosto</th>
+          <th>Setembro</th>
+          <th>Outubro</th>
+          <th>Novembro</th>
+          <th>Dezembro</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ano of taxas">
+        <td><b> {{ ano?.ano }}</b></td>
+        <td *ngFor="let tx of ano?.taxas"> {{ tx | number:'1.2-2' }}% </td>
+      </tr>
+    </tbody>
+
+  </table>
+ </div>
+</div>
+
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

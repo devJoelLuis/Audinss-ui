@@ -1,0 +1,27 @@
+.pad {
+  padding: 20px;
+}
+#titulo {
+  font-weight: 300;
+}
+.top20 {
+  margin-top: 20px;
+}
+.center {
+  text-align: center;
+}
+.col-nome {
+  width: 250px;
+}
+.col-email {
+ width: 200px;
+}
+.col-obs {
+  width: 300px;
+}
+.col-op {
+  width: 120px;
+}
+.bt-edit {
+  margin-right: 10px;
+}

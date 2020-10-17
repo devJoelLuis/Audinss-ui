@@ -1,0 +1,74 @@
+.pad {
+  padding: 30px;
+}
+#titulo {
+  font-weight: 300;
+}
+.top10 {
+  margin-top: 10px;
+}
+.btnOp {
+  margin-right: 10px;
+  width: 80px;
+}
+.center {
+  text-align: center;
+}
+.bt-edit {
+  margin-right: 5px;
+}
+.col-id {
+  width: 100px;
+}
+.col-op {
+  width: 120px;
+}
+.center {
+  text-align: center;
+}
+.tabela-artigos {
+  width: 100%;
+  overflow: auto;
+}
+#tb-artigo {
+  background-color: #fff;
+}
+#tb-artigo td {
+  padding: 8px;
+  font-size: 13px;
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+  padding: 10px;
+}
+
+#dtini {
+  margin-right: 10px;
+
+}
+
+
+@media screen and (min-width: 992px) {
+  #dtini {
+    margin-top: 40px;
+  }
+}
+
+
+@media screen and (max-width: 640px) {
+  .pad {
+    padding: 5px;
+  }
+  .tabela-artigos {
+    width: 90%;
+    margin: 0 auto;
+    overflow: auto;
+  }
+}

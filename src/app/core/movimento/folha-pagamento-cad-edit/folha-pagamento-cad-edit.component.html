@@ -1,0 +1,147 @@
+<div [class]="css">
+
+
+  <h4 id="titulo"> {{ titulo }} </h4>
+
+  <hr />
+
+  <!-- linha 1 -->
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div><label>Clientes:</label></div>
+      <p-dropdown placeholder="Selecione o Cliente" (onChange)="limpar()" (onBlur)="limpar()"
+        [options]="clientesDto" [(ngModel)]="clienteSelecionado" [style]="{'width':'100%'}"
+        optionLabel="nome" filter="true"></p-dropdown>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="mes">Mes:</label>
+        <input type="number" class="form-control form-control-sm" id="mes" (change)="limpar()"
+        (onBlur)="limpar()" [(ngModel)]="aliquota.mes" name="mm" min="1" max="13">
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="ano">Ano:</label>
+        <input type="number" (change)="limpar()" (onBlur)="limpar()"
+           class="form-control form-control-sm" id="ano"
+             [(ngModel)]="aliquota.ano" name="aaaa" min="2000" max="2100">
+     </div>
+    </div>
+  </div><!-- fim linha 1 -->
+
+
+  <!-- linha 2 -->
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <button type="button" [disabled]="!clienteSelecionado || aliquota.mes < 1 || aliquota.mes > 13 || aliquota.ano < 2000 || aliquota.ano > 2100"
+      class="btn btn-sm btn-primary" (click)="carregar()">
+      <i class="fa fa-download" aria-hidden="true"></i>
+         Carregar
+      </button>
+    </div>
+  </div><!-- fim linha 2 -->
+
+  <hr />
+
+  <div *ngIf="movimentosEdit?.length > 0"><!--  div será exibita se movimentoEdit > 0 -->
+
+    <div class="row">
+       <div class="col-auto col-md-3">
+         <label>INSS Empresa:</label>
+        <input name="inssE" [(ngModel)]="aliquota.inssEmpresa" class="form-control form-control-sm"
+             currencyMask  [options]="{ prefix: '%', decimal: '.' }" placeholder="0.00"/>
+       </div>
+       <div class="col-auto col-md-3">
+        <label>INSS Terceiros:</label>
+        <input name="insster" [(ngModel)]="aliquota.inssTerceiros" class="form-control form-control-sm"
+             currencyMask  [options]="{ prefix: '%', decimal: '.' }" placeholder="0.00"/>
+       </div>
+       <div class="col-auto col-md-3">
+        <label>Rat:</label>
+        <input name="inssrat" [(ngModel)]="aliquota.inssRat" class="form-control form-control-sm"
+             currencyMask  [options]="{ prefix: '%', decimal: '.' }" placeholder="0.00"/>
+      </div>
+      <div class="col-auto col-md-3">
+        <label>Total:</label>
+        <input name="Total" [(ngModel)]="aliquota.inssRat + aliquota.inssTerceiros + aliquota.inssEmpresa" disabled="true"
+        class="form-control form-control-sm" currencyMask  [options]="{ prefix: '%', decimal: '.' }" placeholder="0.00"/>
+      </div>
+    </div>
+
+  <div class="tabela top10">
+    <p-table [value]="movimentosEdit" [responsive]="true" [rowHover]="true">
+      <ng-template pTemplate="caption">
+         Folha de pagamento
+      </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+              <th class="col-cod center">Código:</th>
+              <th class="col-desc">Descrição</th>
+              <th class="col-trib center">Tributação</th>
+              <th class="col-tipo">Base Calc INSS</th>
+              <th class="col-trib center">Valor Provento</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-m let-i="rowIndex">
+          <tr class="ui-selectable-row">
+               <td class="center">{{ m.codigo }}</td>
+              <td>{{ m.descricao }}</td>
+              <td class="center">
+                <p-checkbox [(ngModel)]="m.fp" binary="true" class="chk-tributacao"></p-checkbox>
+                {{ m.fp ? 'T' : 'NT' }}
+              </td>
+              <td>
+                 <input name="base" [(ngModel)]="m.baseCalcInss" (keyup)="mudarFocus($event, i)"
+                    class="form-control form-control-sm" *ngIf="m.tipo" id="input{{ i }}" (blur)="calcularTotais()"
+                    currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="0,00" style="color: red;"/>
+              </td>
+              <td> <input name="provento" [(ngModel)]="m.valorProvento" (keyup)="mudarFocus($event, i)"
+                      class="form-control form-control-sm" *ngIf="!m.tipo" (blur)="calcularTotais()"
+                      currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="0,00" id="input{{ i }}"/>
+             </td>
+          </tr>
+
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="color: red; text-align: right;"> R$ {{totalDespesas  | number: '1.2-2'}} </td>
+          <td style="color: blue; text-align: right;">R$ {{ totalProvento | number: '1.2-2'}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <div class="row top10">
+    <div class="col-12 col-md-6">
+      <button type="button" class="btn btn-primary btn-sm opt" (click)="goBack()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Voltar
+      </button>
+      <button type="button" [disabled]="movimentosEdit?.length < 1" class="btn btn-success btn-sm opt" (click)="salvar()">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        Salvar
+      </button>
+      <button type="button" [disabled]="!clienteSelecionado"  *ngIf="edicao"
+            class="btn btn-danger btn-sm" (click)="excluir()">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+        Excluir
+      </button>
+    </div>
+  </div>
+  <!-- fim div ngif moviemtosEdit > 0 -->
+</div>
+
+
+ <!-- fecha container -->
+</div>
+
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

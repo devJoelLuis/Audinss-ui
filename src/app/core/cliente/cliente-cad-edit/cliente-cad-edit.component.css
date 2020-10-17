@@ -1,0 +1,32 @@
+.pad {
+  padding: 30px;
+}
+#titulo {
+  font-weight: 300;
+}
+.top10 {
+  margin-top: 10px;
+}
+.btnOp {
+  width: 120px;
+  margin-right: 10px;
+}
+#img-pre {
+  margin-top: 10px;
+}
+
+.painel {
+  
+  margin: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.575);
+  background: #fff;
+  border-radius: 5px;
+}
+
+
+@media screen and (max-width: 640px) {
+  .pad {
+    padding: 5px;
+  }
+}

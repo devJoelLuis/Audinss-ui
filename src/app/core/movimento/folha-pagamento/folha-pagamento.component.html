@@ -1,0 +1,94 @@
+<div class="container altura-minima bg-color pad">
+
+
+
+  <h4 id="titulo">Consulta de Folhas de Pagamento</h4>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert" *ngIf="!anos || anos?.length == 0 && clienteSelecionado" >
+         O cliente {{ clienteSelecionado?.nome }} ainda não possue Folhas de pagamentos lançadas.
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-8 col-md-6 form-group">
+      <div><label>Clientes:</label></div>
+       <p-dropdown placeholder="Selecione o Cliente" (onChange)="carregarAnosFp()"
+           [options]="clientesDto" [(ngModel)]="clienteSelecionado" [style]="{'width':'100%'}"
+           optionLabel="nome" filter="true"></p-dropdown>
+       </div>
+       <div class="col-12 col-md-2 form-group" *ngIf="anos && anos?.length > 0" >
+        <div><label>Selecione o Ano:</label></div>
+         <select class="form-control" [(ngModel)]="ano">
+            <option *ngFor="let ano of anos" value={{ano}} >{{ano}}</option>
+         </select>
+      </div>
+      <div class="col-12 col-md-auto form-group" *ngIf="anos && anos?.length > 0 && clienteSelecionado">
+        <button type="button" class="btn btn-sm btn-primary" id="btn-consultar" (click)="consultarLancamentos()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          Consultar
+        </button>
+      </div>
+  </div>
+
+ <hr />
+
+  <button type="button" class="btn btn-sm btn-primary" (click)="novoLancamento()">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    Lançar Folha de Pagamento
+  </button>
+
+  <hr />
+  <div class="row" *ngIf="aliquotas?.length == 0 && anos?.length > 0 && ano && clienteSelecionado">
+    <div class="col-12">
+       <h5 id="nao-encontrado">NENHUM LANÇAMENTO ENCONTRADO!</h5>
+    </div>
+  </div>
+
+  <div class="tabela top20" *ngIf="aliquotas?.length > 0">
+    <p-table [value]="aliquotas" [responsive]="true">
+      <ng-template pTemplate="caption">
+         Folhas de Pagamento Cadastradas
+      </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+              <th class="col-ano center">Ano</th>
+              <th class="col-mes center">Mes</th>
+              <th class="col-obs">Observação</th>
+              <th class="col-op center">Opções</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-al >
+          <tr>
+              <td class="center">{{ al.ano }}</td>
+              <td class="center">{{ al.mes }}</td>
+              <td>{{ al.obs }}</td>
+              <td class="center">
+                <button type="button" class="btn btn-sm btn-warning bt-edit"
+                pTooltip="Editar FP" tooltipPosition="left" (click)="editar(al)">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger"
+                pTooltip="Excluir FP" tooltipPosition="left" (click)="excluir(al)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </div>
+
+
+
+  <!-- fecha container -->
+</div>
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

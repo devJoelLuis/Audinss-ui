@@ -1,0 +1,52 @@
+.bkcor {
+  background: linear-gradient(to right, #151616, #505255);
+  padding: 30px;
+  color: #fff;
+}
+.center {
+  text-align: center;
+}
+.titulo {
+  font-weight: 300;
+}
+.red {
+  color: red;
+}
+.red > td {
+  color: red;
+}
+.green {
+  color: green;
+}
+.green > td {
+  color: green;
+}
+.painel > h5 {
+  margin: 0;
+}
+.painel {
+  display: flex;
+  margin: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.575);
+  background: #fff;
+  border-radius: 5px;
+  justify-items: center;
+  text-align: center;
+}
+.tabela {
+  width: 100%;
+  overflow: auto;
+}
+.col-nome {
+  width: 320px;
+}
+.col-dt-ini {
+  width: 130px;
+}
+.col-dt-fim {
+  width: 130px;
+}
+.col-status {
+  width: 100px;
+}

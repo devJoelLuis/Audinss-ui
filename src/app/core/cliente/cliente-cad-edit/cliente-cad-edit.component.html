@@ -1,0 +1,241 @@
+
+<div [class]="css">
+
+  <div class="painel center">
+    <h4>{{ titulo }}</h4>
+  </div>
+
+
+
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <hr />
+    <div class="painel">
+    <div class="row">
+        <div class="col-12 center">
+            <h5>Dados do cliente:</h5>
+        </div>
+      </div>
+    </div>  
+
+  <div class="painel">    
+
+    <div class="row top10" *ngIf="edicao">
+        <div class="col-12 col-md-6">
+           Cliente id: {{ cliente.id }}
+        </div>
+    </div>
+
+
+
+     <div class="row top10">
+       <div class="col-12 col-md-6">
+        <div class="form-group" [class.has-danger]="nome.invalid && nome.touched">
+          <label  for="nome">Nome*:</label>
+          <input type="text" maxlength="60" [(ngModel)]="cliente.nome" id="nome"
+          class="form-control form-control-sm  text-uppercase" name="nome" #nome="ngModel"
+          required minlength="3" placeholder="Nome completo">
+          <!--começo da mensagens de validação-->
+          <div class="form-control-feedback"
+          *ngIf="nome.hasError('required') && nome.touched">
+             O nome completo é obrigatório</div>
+           <div class="form-control-feedback"
+            *ngIf="nome.hasError('minlength') && nome.dirty">
+             Mínimo de 3 caracteres</div>
+             <!--fim das mensagens de validação do input nome -->
+        </div>
+       </div>
+       <div class="col-12 col-md-6">
+        <div class="form-group" [class.has-danger]="cnpj.invalid && cnpj.touched || cnpj.hasError('maxlength')">
+          <label  for="cnpj" >CNPJ*:</label>
+          <input type="text" [(ngModel)]="cliente.cnpj" maxlength="25"
+          class="form-control form-control-sm" name="cnpj" #cnpj="ngModel" id="cnpj"
+          required minlength="12" placeholder="CNPJ">
+            <!--começo da mensagens de validação-->
+            <div class="form-control-feedback"
+               *ngIf="cnpj.hasError('maxlength')">
+                Máximo 25 caracteres</div>
+             <div class="form-control-feedback"
+               *ngIf="cnpj.hasError('required') && cnpj.touched">
+                O cnpj é obrigatório</div>
+            <div class="form-control-feedback"
+               *ngIf="cnpj.hasError('minlength') && cnpj.dirty">
+                 Mínimo de 12 caracteres</div>
+             <!--fim das mensagens de validação do input cnpj -->
+        </div>
+      </div>
+     </div><!-- fecha linha nome e cnpj -->
+
+
+     <div class="row top10">
+       <div class="col-12 col-md-4">
+         <label for="email">E-mail:</label>
+         <input type="email" placeholder="Entre com o E-mail" class="form-control form-control-sm text-lowercase"
+           name="mail" id="email" [(ngModel)]="cliente.email" maxlength="80">
+       </div>
+       <div class="col-6 col-md-4">
+        <label for="tel1">Telefone 1:</label>
+        <input type="text" placeholder="Entre com um número de telefone" class="form-control form-control-sm"
+          name="tel" id="tel1" [(ngModel)]="cliente.telefone1" maxlength="45">
+      </div>
+      <div class="col-6 col-md-4">
+        <label for="tel2">Telefone 2:</label>
+        <input type="text" placeholder="Entre com segundo número de telefone" class="form-control form-control-sm"
+          name="tell" id="tel2" [(ngModel)]="cliente.telefone2" maxlength="45">
+      </div>
+     </div>
+     <!-- fim dados do cliente -->
+
+    </div>   
+
+
+       <hr />
+
+       <!-- inicio dados do endereço -->
+       <div class="painel">
+       <div class="row">
+        <div class="col-12 center">
+            <h5>Dados do Endereço:</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="painel">
+      <div class="row top10">
+         <div class="col-12 col-md-6">
+          <div class="form-group">
+           <label for="rua">Rua e número:</label>
+           <input type="text" placeholder="Entre com o nome da rua e número" name="ruaa" id="rua" [(ngModel)]="cliente.rua"
+              class="form-control form-control-sm text-uppercase" maxlength=80>
+          </div>
+         </div>
+         <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="bairro">Bairro:</label>
+            <input type="text" placeholder="Entre com o nome do bairro" name="brr" id="bairro" [(ngModel)]="cliente.bairro"
+                class="form-control form-control-sm text-uppercase" maxlength=80>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="row top10">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+          <label for="cidade">Cidade:</label>
+          <input type="text" placeholder="Entre com o nome da cidade" name="cid" id="cidade" [(ngModel)]="cliente.cidade"
+             class="form-control form-control-sm text-uppercase" maxlength=80>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="form-group">
+         <label for="cep">CEP:</label>
+         <input type="text" placeholder="Entre com o CEP" name="cp" id="cep" [(ngModel)]="cliente.cep"
+             class="form-control form-control-sm " maxlength=45>
+          </div>
+       </div>
+       <div class="col-6 col-md-3">
+        <div class="form-group">
+        <label for="estado">Estado:</label>
+        <input type="text" placeholder="Entre com o nome Estado" name="est" id="estado" [(ngModel)]="cliente.estado"
+            class="form-control form-control-sm text-uppercase" maxlength=45>
+        </div>
+      </div>
+     </div>
+
+     <div class="row top10">
+       <div class="col-12 col-md-8">
+        <div class="form-group">
+         <label for="complemento">Complemento:</label>
+         <input type="text" placeholder="Entre com o complemento" name="comple" id="complemento" [(ngModel)]="cliente.complemento"
+            class="form-control form-control-sm" maxlength=80>
+         </div>
+       </div>
+     </div>
+    </div>  
+
+     <hr/>
+     <div class="painel">
+     <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="form-group">
+        <label for="img" >Selecione a imagem do logotipo (somente JPG)</label>
+        <input type="file" (change)="arquivoSelecionado($event.target.files )"
+           accept="image/jpg" class="form-control-file" (click)="limparImagem()">
+        <img *ngIf="imagePreviewImg"  id="img-pre"
+           [src]="sanitizer.bypassSecurityTrustUrl(imagePreviewImg)">
+        </div>
+      </div>
+     </div>
+    </div>
+
+      <hr />
+      <div class="painel">
+      <div class="row">
+        <div class="col-12">
+            <h5>Vigência:</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label>Data início:</label>
+            <div>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2080"
+                [(ngModel)]="cliente.inicio"  name="dtInicio"
+                [showIcon]="true" dateFormat="dd/mm/yy" [locale]="br.br"></p-calendar>
+            </div>
+           </div>
+         </div>
+         <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label>Data Fim:</label>
+            <div>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2080"
+                [(ngModel)]="cliente.fim"  name="dtfim"
+                [showIcon]="true" dateFormat="dd/mm/yy" [locale]="br.br"></p-calendar>
+            </div>
+           </div>
+         </div>
+        </div>
+      </div>  
+
+      <hr />
+
+      <div class="painel">
+          <div class="row top10">
+            <div class="col-12 col-md-6">
+              <label  for="obs" >Observações:</label>
+              <div>
+              <textarea name="obs" rows="4" cols="46" class="form-control" maxlength="254" [(ngModel)]="cliente.obs"></textarea>
+            </div>
+            <label >caracteres restantes: {{ 254-cliente.obs?.length }}</label>
+            </div>
+          </div>
+        </div>
+
+          <hr />
+          <div class="painel">
+            <div class="row">
+              <div class="col-12 center" id="barraBtn">
+                  <button pButton type="button" class="btnOp" (click)="goback()"
+                  icon="fa fa-arrow-left" iconPos="left" label="Voltar"></button>
+
+
+                  <button pButton type="submit" class="btnOp ui-button-success"
+                  icon="fa fa-floppy-o" iconPos="left" label="Salvar"></button>
+                </div>
+            </div>
+          </div>
+          <hr />
+
+  </form>
+
+
+</div><!-- fecha container -->
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

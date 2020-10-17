@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ <div id="titulo"><span id="sp1">AUDINSS</span> <span id="sp2">System ver {{ versao }}</span></div>
+</nav>
+
+<div class="container altura-minima bg-color">
+
+  <div class="container-login">
+
+    <div class="login">
+      <h3>LOGIN</h3>
+      <hr />
+
+      <div class="form-group">
+        <label for="cnpj">E-mail:</label>
+        <input type="text" placeholder="Entre com o E-mail" name="email" id="cnpj"
+          [(ngModel)]="email" class="form-control form-control-sm">
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha:</label>
+        <input type="password" placeholder="Entre password" id="senha" name="senha"
+           [(ngModel)]="senha" class="form-control form-control-sm" (keyup)="keyUp($event)">
+      </div>
+
+      <hr />
+
+      <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <button type="button" class="btn btn-primary btn-sm" (click)="logar()">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>
+            Entrar
+          </button>
+        </div>
+      </div>
+      <div class="col-6">
+        <a href="javascript:;" (click)="esqueceuSenha()" >Esqueci a senha</a>
+      </div>
+      </div>
+
+      <!-- fecha login -->
+    </div>
+
+    <!-- fecha login container -->
+  </div>
+
+<!-- fecha container -->
+</div>
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>

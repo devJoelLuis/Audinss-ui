@@ -1,0 +1,11 @@
+.colorEdit {
+  background-color: rgb(246, 247, 183);
+}
+.pad-top-bot20 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+#btn-salvar {
+  margin-right: 10px;
+  width: 110px;
+}

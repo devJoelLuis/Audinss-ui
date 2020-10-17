@@ -1,0 +1,220 @@
+<div [class]="css">
+
+  <h4 id="titulo">{{ titulo }}</h4>
+
+  <hr />
+
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+  <!-- linha 1 -->
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="form-group" [class.has-danger]="nome.invalid && nome.touched">
+        <label  for="nome">Nome*:</label>
+        <input type="text" maxlength="60" [(ngModel)]="usuario.nome" id="nome"
+        class="form-control form-control-sm  text-uppercase" name="nome" #nome="ngModel"
+        required minlength="3" placeholder="Nome completo">
+        <!--começo da mensagens de validação-->
+        <div class="form-control-feedback"
+        *ngIf="nome.hasError('required') && nome.touched">
+           O nome completo é obrigatório</div>
+         <div class="form-control-feedback"
+          *ngIf="nome.hasError('minlength') && nome.dirty">
+           Mínimo de 3 caracteres</div>
+           <div class="form-control-feedback"
+               *ngIf="nome.hasError('maxlength')">
+                 Máximo de 60 caracteres</div>
+           <!--fim das mensagens de validação do input nome -->
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-group" [class.has-danger]="email.invalid && email.touched">
+        <label  for="nome">E-mail*:</label>
+        <input type="text" maxlength="60" [(ngModel)]="usuario.email" id="email"
+        class="form-control form-control-sm  text-lowercase" name="mail" #email="ngModel"
+        required minlength="6" placeholder="Entre com o e-mail">
+        <!--começo da mensagens de validação-->
+        <div class="form-control-feedback"
+        *ngIf="email.hasError('required') && email.touched">
+           O e-mail é obrigatório</div>
+         <div class="form-control-feedback"
+          *ngIf="email.hasError('minlength') && email.dirty">
+           Mínimo de 6 caracteres</div>
+           <div class="form-control-feedback"
+               *ngIf="email.hasError('maxlength')">
+                 Máximo de 60 caracteres</div>
+           <!--fim das mensagens de validação do input email -->
+      </div>
+    </div>
+  </div><!-- fim linha 1 -->
+
+
+  <!-- linha 2 -->
+  <div class="row" *ngIf="edicao">
+    <div class="col-12">
+     <div class="formGroup" id="altsenha">
+      <label id="lbAltSenha">Alterar Senha</label>
+      <p-checkbox  [(ngModel)]="alterarSenha" binary="true" name="altsenha"></p-checkbox>
+     </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row" *ngIf="alterarSenha || !edicao">
+    <div class="col-12 col-md-6">
+      <div class="form-group" [class.has-danger]="senha.invalid && senha.touched || usuario.senha != resenha">
+        <label  for="nome">Senha*:</label>
+        <input type="password" maxlength="15" [(ngModel)]="usuario.senha" id="senha"
+        class="form-control form-control-sm " name="pw" #senha="ngModel"
+        required minlength="6" placeholder="Entre com a senha">
+        <!--começo da mensagens de validação-->
+        <div class="form-control-feedback"
+        *ngIf="senha.hasError('required') && senha.touched">
+           A senha é obrigatória</div>
+         <div class="form-control-feedback"
+          *ngIf="senha.hasError('minlength') && senha.dirty">
+           Mínimo de 6 caracteres</div>
+          <div class="form-control-feedback"
+             *ngIf="senha.hasError('maxlength')">
+               Máximo de 15 caracteres</div>
+         <div class="form-control-feedback"
+             *ngIf="usuario.senha != resenha">
+            As senhas não são iguais!!</div>
+           <!--fim das mensagens de validação do input senha -->
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-group" [class.has-danger]="rsenha.invalid && rsenha.touched || usuario.senha != resenha">
+        <label  for="nome">Re-Senha*:</label>
+        <input type="password" maxlength="15" [(ngModel)]="resenha" id="rsenha"
+        class="form-control form-control-sm " name="rpw" #rsenha="ngModel"
+        required minlength="6" placeholder="redigite a senha">
+        <!--começo da mensagens de validação-->
+        <div class="form-control-feedback"
+        *ngIf="rsenha.hasError('required') && rsenha.touched">
+           A senha é obrigatória</div>
+         <div class="form-control-feedback"
+          *ngIf="rsenha.hasError('minlength') && rsenha.dirty">
+           Mínimo de 6 caracteres</div>
+           <div class="form-control-feedback"
+               *ngIf="rsenha.hasError('maxlength')">
+                 Máximo de 15 caracteres</div>
+          <div class="form-control-feedback"
+             *ngIf="usuario.senha != resenha">
+             As senhas não são iguais!!</div>
+           <!--fim das mensagens de validação do input re-senha -->
+      </div>
+    </div>
+  </div><!-- fim linha 2 -->
+
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="formGroup" [class.has-danger]="!permissaoSelecionada">
+        <label id="lbPermissao"  for="permissao">Permissão*:</label>
+        <p-dropdown [options]="permissoes" [(ngModel)]="permissaoSelecionada" placeholder="Selecione a permissão"
+        optionLabel="permissao" [showClear]="true" id="permissao" name="perm"></p-dropdown>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="formGroup" [class.has-danger]="obs.invalid">
+        <div><label for="obs">Observação:</label></div>
+        <textarea [(ngModel)]="usuario.obs" class="form-control" #obs="ngModel"
+          id="obs" name="obs" maxlength="255"></textarea>
+        <div>
+           <label for="obs" id="crestantes">Caracteres restantes {{255 - usuario?.obs?.length }}</label>
+         </div>
+         <div class="form-control-feedback"
+             *ngIf="obs.hasError('maxlength')">
+               Máximo de 255 caracteres</div>
+      </div>
+    </div>
+  </div>
+
+
+
+   <div class="row" *ngIf="permissaoSelecionada">
+     <div class="row" *ngIf="permissaoSelecionada.permissao === 'USUÁRIO'">
+       <div class="col-12 col-md-6 top20">
+          <p-table [value]="clientes" [responsive]="true">
+            <ng-template pTemplate="caption">
+               Lista de Clientes do sistema
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="col-nome">Nome</th>
+                    <th class="col-op ar">Adicionar >></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cli >
+                <tr>
+                    <td>{{ cli.nome }}</td>
+                    <td class="ar">
+                      <button type="button" class="btn btn-sm btn-success" (click)="vincular(cli)"
+                       pTooltip="Víncula este cliente ao usuário" tooltipPosition="left">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <div class="paginador" *ngIf="totalRegistro > size">
+          <p-paginator [rows]="size" totalRecords="totalRegistro" [rowsPerPageOptions]="[20,40,80]" (onPageChange)="paginate($event)"></p-paginator>
+        </div>
+       </div>
+       <div class="col-12 col-md-6 top20">
+        <p-table [value]="usuario.clientes" [responsive]="true">
+          <ng-template pTemplate="caption">
+             Lista de Clientes do usuário
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                <th class="col-op al"><< Remover</th>
+                <th class="col-nome">Nome</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-cliu >
+              <tr>
+                  <td class="al">
+                    <button type="button" class="btn btn-sm btn-danger" (click)="desvincular(cliu)"
+                    pTooltip="Desvincula este cliente do usuário" tooltipPosition="left">
+                      <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                  <td>{{ cliu.nome }}</td>
+              </tr>
+          </ng-template>
+      </p-table>
+       </div>
+     </div>
+   </div>
+
+
+  <hr />
+  <div class="row">
+    <div class="col-12" id="barraBtn">
+        <button pButton type="button" class="btnOp" (click)="goback()"
+        icon="fa fa-arrow-left" iconPos="left" label="Voltar"></button>
+
+
+        <button pButton type="submit" class="btnOp ui-button-success"
+          icon="fa fa-floppy-o" iconPos="left" label="Salvar"
+          [disabled]="f.invalid">
+        </button>
+      </div>
+  </div>
+<hr />
+
+  <!-- fecha form -->
+  </form>
+
+ <!-- fecha container -->
+</div>
+
+
+<div class="loadcss" *ngIf="load">
+  <img src="assets/img/load3.gif"/>
+</div>
+

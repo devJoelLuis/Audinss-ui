@@ -1,0 +1,29 @@
+.pad {
+  padding: 20px;
+}
+#titulo {
+  font-weight: 300;
+}
+.center {
+  text-align: center;
+}
+.table-leg {
+  background-color: #fff;
+}
+.table-leg td {
+  font-size: 14px;
+  padding: 6px;
+}
+.col-op {
+  width: 150px;
+}
+.tabela {
+  width: 100%;
+  overflow: auto;
+}
+.pad10 {
+  padding: 10px;
+}
+.btn {
+  margin-right: 8px;
+}

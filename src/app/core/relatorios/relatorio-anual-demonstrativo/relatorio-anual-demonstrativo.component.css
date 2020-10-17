@@ -1,0 +1,42 @@
+.pad {
+  padding: 20px;
+}
+#titulo {
+  width: 100%;
+  text-align: center;
+}
+#titulo h4 {
+  font-weight: 300;
+}
+.btn-margin-top {
+  margin-top: 33px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 640px) {
+  .pad {
+    padding: 5px;
+  }
+  .btn-margin-top {
+    margin-top: 0px;
+  }
+
+}

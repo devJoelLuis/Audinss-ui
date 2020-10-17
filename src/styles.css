@@ -1,0 +1,115 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+
+}
+ html, body {
+
+  /*
+  min-height: 100%;
+
+
+  */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}
+.text-black {
+  color: black;
+}
+.colorNovo {
+  background-color: rgb(203, 222, 247);
+}
+.colorEdit {
+  background-color: rgb(243, 236, 176);
+}
+
+.footer {
+  margin: 0;
+  position: relative;
+  width:100%;
+   background-color: #343a40;
+   height: 110px;
+   clear: both;
+   padding: 10px;
+   color: black;
+   font-size: 13px;
+   text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.loadcss {
+  position: fixed;
+  width: 100%;
+   height: 100%;
+  /* background-color: rgba(15, 15, 15, 0.788);*/
+  left: 0;
+  padding: 0;
+  bottom: 0;
+  margin: 0;
+  z-index: 10000;
+}
+
+.loadcss img {
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.has-danger {
+  color:red;
+
+}
+.has-danger input {
+  border: 1px solid red;
+}
+
+.bg-color {
+  background: linear-gradient(to right, #a4c2fa, #e0e9f5);
+}
+.bg-color-edit {
+  background: linear-gradient(to right, rgb(243, 236, 176), rgb(248, 247, 235) );
+}
+.bg-color-novo {
+  background: linear-gradient(to right,rgb(179, 208, 245), rgb(232, 238, 245));
+}
+
+
+fieldset {
+  background: #fff;
+  color: black;
+  padding: 10px;
+}
+
+
+
+@media screen and (max-height: 768px) {
+  .altura-minima {
+    min-height: 568px !important;
+  }
+}
+
+
+
+ @media screen and (min-height: 901px) and (max-height: 1080px) {
+    .altura-minima {
+      min-height: 880px !important;
+    }
+  }
+
+
+
+  @media screen and (min-height: 700px) and (max-height: 900px) {
+    .altura-minima {
+      min-height: 690px !important;
+    }
+  }

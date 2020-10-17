@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="javascript:;" routerLink="/dash">Audinss</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado"
+         aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+
+      </li>
+      <li class="nav-item">
+
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Administrar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:;" routerLink="/clientes" *ngIf="auth.temPermissao('ROLE_ADMIN')">Cadastro Prefeituras</a>
+          <a class="dropdown-item" href="javascript:;" routerLink="/verbas">Cadastro verbas</a>
+          <a class="dropdown-item" href="javascript:;" routerLink="/legislacoes" *ngIf="auth.temPermissao('ROLE_ADMIN')">Cadastro Legislações</a>
+          <a class="dropdown-item" href="javascript:;" routerLink="/verbas/fcorrecao">Configurar FC das Legislações</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:;" routerLink="/usuarios" *ngIf="auth.temPermissao('ROLE_ADMIN')">Cadastro Usuários do sistema</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Lançamento
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:;" routerLink="/movimento">Folha Pagamento (FP)</a>
+          <a class="dropdown-item" href="javascript:;" routerLink="/movimento/fc">Editar FC</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Relatórios
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="javascript:;" routerLink="/relatorios/anual-demonstrativo">Relatório Demonstrativo anual</a>
+            <a class="dropdown-item" href="javascript:;" routerLink="/relatorios/anexo-unico">Relatório anexo único</a>
+            <a class="dropdown-item" href="javascript:;" routerLink="/movimento/fc/relatorio"> Relatório resumo geral Fc e FP</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Taxa Selic
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:;" routerLink="/taxas-selic">Taxas Selic</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Informação
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:;" routerLink="/sobre">SOBRE</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li id="userLogado"><a href="javascript:;" (click)="perfilUsuario()" class="text-uppercase usuario">Usuário: {{ usuarioLogado }}</a></li>
+      <li id="linkLogout"><a href="javascript:;" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+    </ul>
+
+  </div>
+</nav>
